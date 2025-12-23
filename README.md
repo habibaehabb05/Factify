@@ -57,7 +57,11 @@ git clone https://github.com/habibaehabb05/Factify.git
 - [x] **Design Patterns**: Implemented Strategy, Observer, and Factory patterns.
 
 ## 👥 Authors
-- **Habiba** - *Initial Work*
+- **Habiba Elgharabawy**  
+- **yasmen yaser**
+- **mostafa ayman**
+- **omar fawzy**
+- **tarek essam**
 
 ---
 *Built with ❤️ for Truth.*
