@@ -1,0 +1,81 @@
+@startuml Sequence_Diagram_Admin
+
+title Factify - Admin Sequence Diagram (Administration Flow)
+
+skinparam sequenceMessageAlign center
+
+actor Admin as admin
+participant "React Client\n(Frontend)" as client
+participant "Node.js Server\n(Backend)" as server
+participant "Auth Middleware" as auth
+participant "MongoDB" as db
+
+== Admin Authentication ==
+admin -> client : Open Application
+admin -> client : Enter admin credentials
+client -> server : POST /api/auth/login
+server -> db : Find user by email
+db --> server : User document
+server -> server : Verify password
+server -> server : Check role == 'admin'
+server --> client : JWT Token + Admin role
+client -> client : Store token
+client -> admin : Redirect to Admin Dashboard
+
+== View Dashboard ==
+admin -> client : Access Admin Dashboard
+client -> client : Verify admin role
+client -> server : GET /api/admin/stats
+server -> auth : Validate JWT token
+auth -> auth : Verify admin role
+auth --> server : Authorized
+
+server -> db : Count total users
+server -> db : Count total analyses
+server -> db : Aggregate recent activity
+db --> server : Statistics data
+server --> client : Dashboard stats
+client -> admin : Display statistics\n(users, analyses, trends)
+
+== View All Users ==
+admin -> client : Click "View Users"
+client -> server : GET /api/admin/users
+server -> auth : Validate admin token
+auth --> server : Authorized
+server -> db : Query all users
+db --> server : User list
+server --> client : Users array
+client -> admin : Display user table\n(name, email, role, date)
+
+== Delete User ==
+admin -> client : Click "Delete" on user
+client -> admin : Confirm deletion dialog
+admin -> client : Confirm
+client -> server : DELETE /api/admin/users/:id
+server -> auth : Validate admin token
+auth --> server : Authorized
+
+server -> db : Find user by ID
+db --> server : User document
+alt User is admin
+    server --> client : Error: Cannot delete admin
+    client -> admin : Show error message
+else User is regular user
+    server -> db : Delete user
+    server -> db : Delete user's analyses
+    db --> server : Deletion confirmed
+    server --> client : Success response
+    client -> admin : Remove from table\nShow success message
+end
+
+== View All Analyses ==
+admin -> client : Click "View Analyses"
+client -> server : GET /api/admin/analyses
+server -> auth : Validate admin token
+auth --> server : Authorized
+server -> db : Query all analyses\nwith user population
+db --> server : Analyses with user info
+server --> client : Analyses array
+client -> admin : Display analyses table\n(user, content, verdict, date)
+
+@enduml

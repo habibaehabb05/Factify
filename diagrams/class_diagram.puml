@@ -1,0 +1,190 @@
+@startuml Class_Diagram
+
+title Factify - Class Diagram
+
+skinparam classAttributeIconSize 0
+
+' ========================
+' FRONTEND CLASSES
+' ========================
+package "Frontend (React)" #LightGreen {
+    
+    class AuthContext {
+        - user: Object
+        - token: String
+        - loading: Boolean
+        + login(email, password): Promise
+        + register(userData): Promise
+        + logout(): void
+        + isAuthenticated(): Boolean
+        + isAdmin(): Boolean
+    }
+    
+    class ApiService {
+        - baseURL: String
+        + login(credentials): Promise
+        + register(userData): Promise
+        + analyze(data): Promise
+        + getHistory(): Promise
+        + getUsers(): Promise
+        + deleteUser(id): Promise
+    }
+    
+    class CheckNews {
+        - inputType: String
+        - content: String
+        - result: Object
+        - loading: Boolean
+        + handleSubmit(): void
+        + handleFileUpload(file): void
+        + renderResult(): JSX
+    }
+    
+    class AdminDashboard {
+        - users: Array
+        - analyses: Array
+        - stats: Object
+        + fetchUsers(): void
+        + fetchAnalyses(): void
+        + deleteUser(id): void
+    }
+}
+
+' ========================
+' BACKEND CLASSES
+' ========================
+package "Backend (Node.js)" #LightBlue {
+    
+    class User <<Model>> {
+        + _id: ObjectId
+        + username: String
+        + email: String
+        + password: String
+        + role: Enum[user, admin]
+        + createdAt: Date
+        --
+        + matchPassword(entered): Boolean
+    }
+    
+    class Analysis <<Model>> {
+        + _id: ObjectId
+        + userId: ObjectId <<FK>>
+        + inputType: Enum[text, url, image]
+        + content: String
+        + result: AnalysisResult
+        + timestamp: Date
+    }
+    
+    class AnalysisResult <<ValueObject>> {
+        + classification: Enum[Fake, Real]
+        + confidenceScore: Number
+        + explanation: String
+    }
+    
+    class AuthController {
+        + register(req, res): Response
+        + login(req, res): Response
+    }
+    
+    class AnalysisController {
+        + analyze(req, res): Response
+        + getHistory(req, res): Response
+    }
+    
+    class AdminController {
+        + getUsers(req, res): Response
+        + deleteUser(req, res): Response
+        + getAnalyses(req, res): Response
+    }
+    
+    class AIService {
+        - ragServiceUrl: String
+        + analyzeContent(type, content): Promise
+    }
+    
+    class AuthMiddleware {
+        + protect(req, res, next): void
+        + adminOnly(req, res, next): void
+    }
+}
+
+' ========================
+' RAG SERVICE CLASSES
+' ========================
+package "RAG Service (Python)" #LightCoral {
+    
+    class AnalysisRequest <<Pydantic>> {
+        + type: str
+        + content: str
+        + preprocessing: str
+    }
+    
+    class AnalysisResponse <<Pydantic>> {
+        + verdict: str
+        + confidence_score: float
+        + explanation: str
+        + sources: List[str]
+    }
+    
+    class RAGPipeline {
+        - llm: ChatGroq
+        - embeddings: HuggingFaceEmbeddings
+        - vector_store: FAISS
+        + process_input(request): str
+        + analyze_news(request): AnalysisResponse
+    }
+    
+    class ScraperService {
+        + scrape_article(url): str
+    }
+    
+    class OCRService {
+        + extract_text_from_image(bytes): str
+        + extract_text_from_url_image(url): str
+    }
+    
+    class SearchService {
+        + search_web(query, num): List[dict]
+    }
+    
+    class LLMService {
+        - groq_api_key: str
+        - hf_api_token: str
+        + llm: ChatGroq
+        + embeddings: HuggingFaceEmbeddings
+    }
+}
+
+' ========================
+' RELATIONSHIPS
+' ========================
+
+' Frontend relationships
+AuthContext --> ApiService : uses
+CheckNews --> ApiService : uses
+CheckNews --> AuthContext : uses
+AdminDashboard --> ApiService : uses
+AdminDashboard --> AuthContext : uses
+
+' Backend relationships
+User "1" -- "*" Analysis : has
+Analysis *-- AnalysisResult : contains
+AuthController --> User : manages
+AnalysisController --> Analysis : manages
+AnalysisController --> AIService : calls
+AdminController --> User : manages
+AdminController --> Analysis : reads
+AuthMiddleware --> User : validates
+
+' RAG relationships
+RAGPipeline --> AnalysisRequest : receives
+RAGPipeline --> AnalysisResponse : returns
+RAGPipeline --> ScraperService : uses
+RAGPipeline --> OCRService : uses
+RAGPipeline --> SearchService : uses
+RAGPipeline --> LLMService : uses
+
+' Cross-layer relationships
+AIService ..> RAGPipeline : HTTP call
+
+@enduml

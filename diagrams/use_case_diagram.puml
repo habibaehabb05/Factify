@@ -1,0 +1,83 @@
+@startuml Use_Case_Diagram
+
+title Factify - Use Case Diagram
+
+left to right direction
+skinparam packageStyle rectangle
+
+' Actors
+actor "User" as user
+actor "Admin" as admin
+actor "Groq LLM\n(Llama 3.3)" as gemini <<External System>>
+actor "DuckDuckGo" as ddg <<External System>>
+
+' System Boundary
+rectangle "Factify Fake News Detection System" {
+    
+    ' Authentication Use Cases
+    package "Authentication" {
+        usecase "Register Account" as UC1
+        usecase "Login" as UC2
+        usecase "Logout" as UC3
+    }
+    
+    ' News Analysis Use Cases
+    package "News Analysis" {
+        usecase "Submit Text for Analysis" as UC4
+        usecase "Submit URL for Analysis" as UC5
+        usecase "Submit Image for Analysis" as UC6
+        usecase "View Analysis Result" as UC7
+        usecase "View Analysis History" as UC8
+    }
+    
+    ' AI Processing Use Cases
+    package "AI Processing" {
+        usecase "Process Input" as UC9
+        usecase "Search Web for Evidence" as UC10
+        usecase "Perform OCR on Image" as UC11
+        usecase "Scrape Article Content" as UC12
+        usecase "Verify with LLM" as UC13
+    }
+    
+    ' Admin Use Cases
+    package "Administration" {
+        usecase "View All Users" as UC14
+        usecase "Delete User" as UC15
+        usecase "View All Analyses" as UC16
+        usecase "View System Statistics" as UC17
+    }
+}
+
+' User Relationships
+user --> UC1
+user --> UC2
+user --> UC3
+user --> UC4
+user --> UC5
+user --> UC6
+user --> UC7
+user --> UC8
+
+' Admin Relationships (inherits User)
+admin --> UC2
+admin --> UC14
+admin --> UC15
+admin --> UC16
+admin --> UC17
+
+' Include Relationships
+UC4 ..> UC9 : <<include>>
+UC5 ..> UC9 : <<include>>
+UC6 ..> UC9 : <<include>>
+UC9 ..> UC13 : <<include>>
+UC9 ..> UC10 : <<include>>
+
+' Extend Relationships
+UC5 ..> UC12 : <<extend>>
+UC6 ..> UC11 : <<extend>>
+
+' External System Relationships
+UC13 --> gemini : uses
+UC10 --> ddg : uses
+
+@enduml

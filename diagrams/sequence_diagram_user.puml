@@ -1,0 +1,83 @@
+@startuml Sequence_Diagram_User
+
+title Factify - User Sequence Diagram (News Analysis Flow)
+
+skinparam sequenceMessageAlign center
+
+actor User as user
+participant "React Client\n(Frontend)" as client
+participant "Node.js Server\n(Backend)" as server
+participant "MongoDB" as db
+participant "Python RAG\nService" as rag
+participant "DuckDuckGo\nSearch" as search
+participant "Groq LLM\n(Llama 3.3)" as llm
+
+== Authentication ==
+user -> client : Open Application
+client -> client : Check stored token
+alt No token or expired
+    client -> user : Redirect to Login
+    user -> client : Enter credentials
+    client -> server : POST /api/auth/login
+    server -> db : Find user by email
+    db --> server : User document
+    server -> server : Verify password (bcrypt)
+    server --> client : JWT Token + User info
+    client -> client : Store token in localStorage
+end
+
+== News Analysis ==
+user -> client : Navigate to Check News
+user -> client : Enter news text/URL/image
+user -> client : Click "Analyze"
+
+client -> server : POST /api/analyze\n{type, content}
+activate server
+
+server -> server : Validate request
+server -> server : Prepare analysis request
+
+server -> rag : POST /analyze\n{type, content}
+activate rag
+
+== Input Processing ==
+alt type == "url"
+    rag -> rag : Scrape article content
+else type == "image"
+    rag -> rag : OCR (Tesseract)
+else type == "text"
+    rag -> rag : Use raw text
+end
+
+== Evidence Gathering ==
+rag -> llm : Generate search query
+llm --> rag : Optimized query
+rag -> search : Search for evidence
+search --> rag : Search results (URLs, snippets)
+
+== Fact Verification ==
+rag -> llm : Verify claim with evidence
+llm --> rag : JSON verdict response
+rag -> rag : Parse LLM response
+
+rag --> server : AnalysisResponse\n{verdict, confidence, explanation, sources}
+deactivate rag
+
+== Save Result ==
+server -> db : Save analysis record
+db --> server : Saved document
+
+server --> client : Analysis result
+deactivate server
+
+client -> user : Display verdict,\nconfidence score,\nexplanation, sources
+
+== View History ==
+user -> client : Navigate to History
+client -> server : GET /api/analyze/history
+server -> db : Query user's analyses
+db --> server : Analysis documents
+server --> client : History list
+client -> user : Display analysis history
+
+@enduml

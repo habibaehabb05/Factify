@@ -1,0 +1,76 @@
+@startuml State_Diagram
+
+title Factify - State Diagram (News Analysis Lifecycle)
+
+skinparam stateBackgroundColor White
+skinparam stateBorderColor Black
+skinparam state {
+    FontSize 14
+    ArrowFontSize 12
+}
+
+' Initial State
+[*] --> Idle
+
+' Main States
+state "Idle" as Idle #LightBlue
+Idle : User browsing application
+Idle : No active analysis
+
+state "Input Selection" as InputSelection #LightGreen
+InputSelection : Selecting input type
+InputSelection : (Text / URL / Image)
+
+state "Submitting" as Submitting #LightYellow
+Submitting : Validating input
+Submitting : Sending to server
+
+state "Processing" as Processing #Orange
+Processing : RAG pipeline active
+Processing : Extracting content
+Processing : Searching web evidence
+Processing : LLM fact-checking
+
+state "Success" as Success #LightGreen
+Success : Analysis complete
+Success : Displaying verdict
+
+state "Error" as Error #Pink
+Error : Analysis failed
+Error : Showing error message
+
+state "View History" as History #LightGray
+History : Loading user analyses
+History : Displaying past results
+
+state "Admin Dashboard" as Admin #Lavender
+Admin : View statistics
+Admin : Manage users
+Admin : View all analyses
+
+' Transitions - User Flow
+Idle --> InputSelection : Navigate to\nCheck News
+InputSelection --> Submitting : Click Analyze
+Submitting --> Processing : Valid request
+Submitting --> Error : Invalid input
+Processing --> Success : Complete
+Processing --> Error : Failed
+
+' Return Transitions
+Success --> Idle : Close result
+Success --> InputSelection : Analyze another
+Error --> Idle : Dismiss
+Error --> InputSelection : Try again
+
+' History Flow
+Idle --> History : View History
+History --> Idle : Go back
+
+' Admin Flow
+Idle --> Admin : Admin Login
+Admin --> Idle : Logout
+
+' Final State (optional)
+Idle --> [*] : Close app
+
+@enduml

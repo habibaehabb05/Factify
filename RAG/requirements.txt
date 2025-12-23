@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+python-dotenv
+langchain
+langchain-community
+langchain-groq
+faiss-cpu
+pypdf
+# New Dependencies
+beautifulsoup4
+duckduckgo-search
+pillow
+pytesseract
+requests

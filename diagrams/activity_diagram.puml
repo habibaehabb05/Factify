@@ -1,0 +1,90 @@
+@startuml Activity_Diagram
+
+title Factify - Activity Diagram (News Analysis Process)
+
+|#LightBlue|Client|
+|#LightGreen|Backend|
+|#LightCoral|RAG Service|
+|#LightGray|Database|
+
+|Client|
+start
+:User opens Factify;
+
+if (Logged in?) then (no)
+    :Enter credentials;
+    |Backend|
+    :Validate credentials;
+    if (Valid?) then (yes)
+        :Generate JWT;
+        |Client|
+        :Store token;
+    else (no)
+        |Client|
+        :Show error;
+        stop
+    endif
+else (yes)
+    :Load session;
+endif
+
+|Client|
+:Select input type\n(Text/URL/Image);
+:Enter content;
+:Click Analyze;
+
+|Backend|
+:Receive request;
+:Validate request;
+
+if (Valid?) then (yes)
+    :Forward to RAG;
+else (no)
+    |Client|
+    :Show error;
+    stop
+endif
+
+|RAG Service|
+:Process input;
+
+switch (Type?)
+case (URL)
+    :Scrape with\nBeautifulSoup;
+case (Image)
+    :OCR with\nTesseract;
+case (Text)
+    :Use raw text;
+endswitch
+
+:Generate query\n(Groq Llama 3.3);
+:Search web\n(DuckDuckGo);
+:Build context;
+:Verify claim\n(Groq Llama 3.3);
+:Parse response;
+
+|Backend|
+:Receive result;
+
+|Database|
+:Save analysis;
+
+|Backend|
+:Return to client;
+
+|Client|
+:Display verdict;
+:Show confidence;
+:Show explanation;
+:Show sources;
+
+if (Analyze another?) then (yes)
+    :Return to input;
+    stop
+else (no)
+    :View history or exit;
+endif
+
+stop
+
+@enduml

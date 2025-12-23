@@ -1,0 +1,60 @@
+@startuml ER_Diagram
+
+title Factify - Entity Relationship Diagram (MongoDB)
+
+skinparam linetype ortho
+
+entity "User" as user {
+    * _id : ObjectId <<PK>>
+    --
+    * username : String
+    * email : String <<unique>>
+    * password : String <<hashed>>
+    * role : Enum [user, admin]
+    * createdAt : Date
+}
+
+entity "Analysis" as analysis {
+    * _id : ObjectId <<PK>>
+    --
+    * userId : ObjectId <<FK>>
+    * inputType : Enum [text, url, image]
+    * content : String
+    * timestamp : Date
+}
+
+entity "AnalysisResult" as result {
+    (Embedded Document)
+    --
+    classification : Enum [Fake, Real]
+    confidenceScore : Number (0-100)
+    explanation : String
+}
+
+' Relationships
+user ||--o{ analysis : "performs"
+analysis ||--|| result : "contains"
+
+note right of user
+    <b>User Collection</b>
+    Stores registered users
+    including admins
+    
+    Password is hashed
+    using bcrypt
+end note
+
+note right of analysis
+    <b>Analysis Collection</b>
+    Stores all fact-check
+    analyses performed
+    by users
+end note
+
+note bottom of result
+    <b>Embedded in Analysis</b>
+    Not a separate collection
+    Stored as nested object
+end note
+
+@enduml

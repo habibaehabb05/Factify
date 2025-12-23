@@ -1,0 +1,111 @@
+@startuml Architecture_Diagram
+
+title Factify - System Architecture Diagram
+
+skinparam componentStyle uml2
+skinparam rectangleBorderThickness 2
+
+' Presentation Layer
+rectangle "Presentation Layer" #PaleGreen {
+    [React Client] as react
+    note right of react
+        Port: 5173
+        - React + Vite
+        - Context API
+        - Axios for HTTP
+    end note
+    
+    [Home Page] as home
+    [Check News Page] as checknews
+    [Login/Register] as auth_ui
+    [User History] as history_ui
+    [Admin Dashboard] as admin_ui
+    
+    react --> home
+    react --> checknews
+    react --> auth_ui
+    react --> history_ui
+    react --> admin_ui
+}
+
+' Business Logic Layer
+rectangle "Business Logic Layer" #LightBlue {
+    [Node.js Express Server] as node
+    note right of node
+        Port: 5000
+        - Express.js
+        - JWT Auth
+        - REST API
+    end note
+    
+    package "Controllers" {
+        [Auth Controller] as auth_ctrl
+        [Analysis Controller] as analysis_ctrl
+        [Admin Controller] as admin_ctrl
+    }
+    
+    package "Middlewares" {
+        [Auth Middleware] as auth_mid
+        [Upload Middleware] as upload_mid
+    }
+    
+    package "Services" {
+        [AI Service] as ai_svc
+    }
+    
+    node --> auth_ctrl
+    node --> analysis_ctrl
+    node --> admin_ctrl
+    auth_ctrl --> auth_mid
+    analysis_ctrl --> upload_mid
+    analysis_ctrl --> ai_svc
+}
+
+' AI/ML Layer
+rectangle "AI/ML Layer (RAG Pipeline)" #LightCoral {
+    [Python FastAPI Service] as python
+    note right of python
+        Port: 3002
+        - LangChain
+        - FAISS Vector Store
+    end note
+    
+    package "Processing Services" {
+        [Scraper Service] as scraper
+        [OCR Service] as ocr
+        [Search Service] as websearch
+        [LLM Service] as llm_svc
+    }
+    
+    python --> scraper
+    python --> ocr
+    python --> websearch
+    python --> llm_svc
+}
+
+' Data Layer
+rectangle "Data Layer" #LightGray {
+    database "MongoDB" as mongo {
+        [Users Collection]
+        [Analyses Collection]
+    }
+}
+
+' External Services
+cloud "External Services" #Lavender {
+    [Groq LLM API (Llama 3.3)] as gemini
+    [DuckDuckGo Search] as ddg
+    [News Websites] as websites
+}
+
+' Connections
+react ..> node : HTTP/REST
+ai_svc --> python : HTTP/JSON
+
+node --> mongo : Mongoose ODM
+
+llm_svc --> gemini : API
+websearch --> ddg : HTTP
+scraper --> websites : Web Scraping
+
+@enduml

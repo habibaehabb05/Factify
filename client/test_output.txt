@@ -1,0 +1,270 @@
+
+[1m[46m RUN [49m[22m [36mv4.0.16 [39m[90mC:/Users/habib/Downloads/Factify-main (1)/Factify-main/client[39m
+
+[90mstdout[2m | src/pages/Register.test.jsx
+[22m[39m[API] Base URL: http://localhost:5000/api
+
+[90mstdout[2m | src/pages/Register.test.jsx[2m > [22m[2mRegister Component[2m > [22m[2mvalidates uppercase requirement
+[22m[39m[TEST] Starting uppercase test
+
+[90mstdout[2m | src/pages/Register.test.jsx[2m > [22m[2mRegister Component[2m > [22m[2mvalidates uppercase requirement
+[22m[39m[TEST] Clicking submit
+
+ [31m❯[39m src/pages/Register.test.jsx [2m([22m[2m8 tests[22m[2m | [22m[31m1 failed[39m[2m | [22m[33m7 skipped[39m[2m)[22m[33m 1802[2mms[22m[39m
+     [2m[90m↓[39m[22m renders registration form correctly
+     [2m[90m↓[39m[22m validates password length
+[31m     [31m×[31m validates uppercase requirement[39m[33m 1797[2mms[22m[39m
+     [2m[90m↓[39m[22m validates lowercase requirement
+     [2m[90m↓[39m[22m validates number requirement
+     [2m[90m↓[39m[22m validates special character requirement
+     [2m[90m↓[39m[22m validates password match
+     [2m[90m↓[39m[22m calls register function on successful validation
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m src/pages/Register.test.jsx[2m > [22mRegister Component[2m > [22mvalidates uppercase requirement
+[31m[1mTestingLibraryElementError[22m[39m: Unable to find an element with the text: /password must contain at least one uppercase letter/i. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"container flex-center"[39m
+      [33mstyle[39m=[32m"min-height: 80vh;"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"card"[39m
+        [33mstyle[39m=[32m"width: 400px;"[39m
+      [36m>[39m
+        [36m<h2[39m
+          [33mclass[39m=[32m"text-center"[39m
+          [33mstyle[39m=[32m"color: var(--accent-cyan); margin-bottom: 1.5rem;"[39m
+        [36m>[39m
+          [0mCreate Account[0m
+        [36m</h2>[39m
+        [36m<form>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"margin-bottom: 1rem;"[39m
+          [36m>[39m
+            [36m<label[39m
+              [33mstyle[39m=[32m"display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);"[39m
+            [36m>[39m
+              [0mUsername[0m
+            [36m</label>[39m
+            [36m<input[39m
+              [33mplaceholder[39m=[32m"johndoe"[39m
+              [33mrequired[39m=[32m""[39m
+              [33mstyle[39m=[32m"margin: 0px;"[39m
+              [33mtype[39m=[32m"text"[39m
+              [33mvalue[39m=[32m""[39m
+            [36m/>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"margin-bottom: 1rem;"[39m
+          [36m>[39m
+            [36m<label[39m
+              [33mstyle[39m=[32m"display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);"[39m
+            [36m>[39m
+              [0mEmail Address[0m
+            [36m</label>[39m
+            [36m<input[39m
+              [33mplaceholder[39m=[32m"john@example.com"[39m
+              [33mrequired[39m=[32m""[39m
+              [33mstyle[39m=[32m"margin: 0px;"[39m
+              [33mtype[39m=[32m"email"[39m
+              [33mvalue[39m=[32m""[39m
+            [36m/>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"margin-bottom: 1.5rem;"[39m
+          [36m>[39m
+            [36m<label[39m
+              [33mstyle[39m=[32m"display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);"[39m
+            [36m>[39m
+              [0mPassword[0m
+            [36m</label>[39m
+            [36m<input[39m
+              [33mplaceholder[39m=[32m"Start typing..."[39m
+              [33mrequired[39m=[32m""[39m
+              [33mstyle[39m=[32m"margin: 0px;"[39m
+              [33mtype[39m=[32m"password"[39m
+              [33mvalue[39m=[32m"password123!"[39m
+            [36m/>[39m
+            [36m<p[39m
+              [33mstyle[39m=[32m"font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.5rem;"[39m
+            [36m>[39m
+              [0mMin 8 chars with uppercase, lowercase, number & special character.[0m
+            [36m</p>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mstyle[39m=[32m"margin-bottom: 1.5rem;"[39m
+          [36m>[39m
+            [36m<label[39m
+              [33mstyle[39m=[32m"display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);"[39m
+            [36m>[39m
+              [0mConfirm Password[0m
+            [36m</label>[39m
+            [36m<input[39m
+              [33mplaceholder[39m=[32m"Re-enter password"[39m
+              [33mrequired[39m=[32m""[39m
+              [33mstyle[39m=[32m"margin: 0px;"[39m
+              [33mtype[39m=[32m"password"[39m
+              [33mvalue[39m=[32m"password123!"[39m
+            [36m/>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"btn"[39m
+            [33mstyle[39m=[32m"width: 100%;"[39m
+            [33mtype[39m=[32m"submit"[39m
+          [36m>[39m
+            [0mSign Up[0m
+          [36m</button>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"text-center"[39m
+            [33mstyle[39m=[32m"margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-secondary);"[39m
+          [36m>[39m
+            [0mAlready have an account? [0m
+            [36m<a[39m
+              [33mhref[39m=[32m"/login"[39m
+              [33mstyle[39m=[32m"color: var(--accent-cyan);"[39m
+            [36m>[39m
+              [0mLogin[0m
+            [36m</a>[39m
+          [36m</p>[39m
+        [36m</form>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+
+Ignored nodes: comments, script, style
+[36m<html>[39m
+  [36m<head />[39m
+  [36m<body>[39m
+    [36m<div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"container flex-center"[39m
+        [33mstyle[39m=[32m"min-height: 80vh;"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"card"[39m
+          [33mstyle[39m=[32m"width: 400px;"[39m
+        [36m>[39m
+          [36m<h2[39m
+            [33mclass[39m=[32m"text-center"[39m
+            [33mstyle[39m=[32m"color: var(--accent-cyan); margin-bottom: 1.5rem;"[39m
+          [36m>[39m
+            [0mCreate Account[0m
+          [36m</h2>[39m
+          [36m<form>[39m
+            [36m<div[39m
+              [33mstyle[39m=[32m"margin-bottom: 1rem;"[39m
+            [36m>[39m
+              [36m<label[39m
+                [33mstyle[39m=[32m"display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);"[39m
+              [36m>[39m
+                [0mUsername[0m
+              [36m</label>[39m
+              [36m<input[39m
+                [33mplaceholder[39m=[32m"johndoe"[39m
+                [33mrequired[39m=[32m""[39m
+                [33mstyle[39m=[32m"margin: 0px;"[39m
+                [33mtype[39m=[32m"text"[39m
+                [33mvalue[39m=[32m""[39m
+              [36m/>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mstyle[39m=[32m"margin-bottom: 1rem;"[39m
+            [36m>[39m
+              [36m<label[39m
+                [33mstyle[39m=[32m"display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);"[39m
+              [36m>[39m
+                [0mEmail Address[0m
+              [36m</label>[39m
+              [36m<input[39m
+                [33mplaceholder[39m=[32m"john@example.com"[39m
+                [33mrequired[39m=[32m""[39m
+                [33mstyle[39m=[32m"margin: 0px;"[39m
+                [33mtype[39m=[32m"email"[39m
+                [33mvalue[39m=[32m""[39m
+              [36m/>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mstyle[39m=[32m"margin-bottom: 1.5rem;"[39m
+            [36m>[39m
+              [36m<label[39m
+                [33mstyle[39m=[32m"display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);"[39m
+              [36m>[39m
+                [0mPassword[0m
+              [36m</label>[39m
+              [36m<input[39m
+                [33mplaceholder[39m=[32m"Start typing..."[39m
+                [33mrequired[39m=[32m""[39m
+                [33mstyle[39m=[32m"margin: 0px;"[39m
+                [33mtype[39m=[32m"password"[39m
+                [33mvalue[39m=[32m"password123!"[39m
+              [36m/>[39m
+              [36m<p[39m
+                [33mstyle[39m=[32m"font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.5rem;"[39m
+              [36m>[39m
+                [0mMin 8 chars with uppercase, lowercase, number & special character.[0m
+              [36m</p>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mstyle[39m=[32m"margin-bottom: 1.5rem;"[39m
+            [36m>[39m
+              [36m<label[39m
+                [33mstyle[39m=[32m"display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);"[39m
+              [36m>[39m
+                [0mConfirm Password[0m
+              [36m</label>[39m
+              [36m<input[39m
+                [33mplaceholder[39m=[32m"Re-enter password"[39m
+                [33mrequired[39m=[32m""[39m
+                [33mstyle[39m=[32m"margin: 0px;"[39m
+                [33mtype[39m=[32m"password"[39m
+                [33mvalue[39m=[32m"password123!"[39m
+              [36m/>[39m
+            [36m</div>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"btn"[39m
+              [33mstyle[39m=[32m"width: 100%;"[39m
+              [33mtype[39m=[32m"submit"[39m
+            [36m>[39m
+              [0mSign Up[0m
+            [36m</button>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"text-center"[39m
+              [33mstyle[39m=[32m"margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-secondary);"[39m
+            [36m>[39m
+              [0mAlready have an account? [0m
+              [36m<a[39m
+                [33mhref[39m=[32m"/login"[39m
+                [33mstyle[39m=[32m"color: var(--accent-cyan);"[39m
+              [36m>[39m
+                [0mLogin[0m
+              [36m</a>[39m
+            [36m</p>[39m
+          [36m</form>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+  [36m</body>[39m
+[36m</html>[39m
+[90m [2m❯[22m Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:[2m163:27[22m[39m
+[36m [2m❯[22m src/pages/Register.test.jsx:[2m76:15[22m[39m
+    [90m 74| [39m        await user.click(screen.getByRole('button', { name: /sign up/i…
+    [90m 75| [39m
+    [90m 76| [39m        [35mawait[39m [34mwaitFor[39m(() [33m=>[39m {
+    [90m   | [39m              [31m^[39m
+    [90m 77| [39m            expect(screen.getByText(/password must contain at least on…
+    [90m 78| [39m        })[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[33m7 skipped[39m[90m (8)[39m
+[2m   Start at [22m 10:24:23
+[2m   Duration [22m 4.07s[2m (transform 204ms, setup 160ms, import 593ms, tests 1.80s, environment 1.17s)[22m
+
