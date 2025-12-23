@@ -58,10 +58,10 @@ git clone https://github.com/habibaehabb05/Factify.git
 
 ## 👥 Authors
 - **Habiba Elgharabawy**  
--**yasmen yaser**
--**mostafa ayman**
--**omar fawzy**
--**tarek essam**
+- **yasmen yaser**
+- **mostafa ayman**
+- **omar fawzy**
+- **tarek essam**
 
 ---
 *Built with ❤️ for Truth.*
