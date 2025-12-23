@@ -60,13 +60,13 @@ const About = () => {
                     <TeamMemberCard
                         delay="0.6s"
                         name="Habiba Ehab"
-                        role="Lead Developer"
+                        role="AI Intelligence Specialist"
                         image="/team/habiba.jpg"
                     />
                     <TeamMemberCard
                         delay="0.7s"
                         name="Omar Fawzy"
-                        role="Backend Architect"
+                        role="Frontend Architect"
                         image="https://ui-avatars.com/api/?name=Omar+Fawzy&background=3b82f6&color=fff&size=150"
                     />
                     <TeamMemberCard
@@ -78,13 +78,13 @@ const About = () => {
                     <TeamMemberCard
                         delay="0.9s"
                         name="Yasmen Yasser"
-                        role="Data Scientist"
+                        role="AI Retrieval Specialist"
                         image="https://ui-avatars.com/api/?name=Yasmen+Yasser&background=ec4899&color=fff&size=150"
                     />
                     <TeamMemberCard
                         delay="1.0s"
                         name="Mostafa Ayman"
-                        role="AI Engineer"
+                        role="Infrastructure Lead"
                         image="https://ui-avatars.com/api/?name=Mostafa+Ayman&background=10b981&color=fff&size=150"
                     />
                 </div>
