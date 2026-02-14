@@ -7,10 +7,7 @@
 
 The system integrates **Groq (Llama 3.3)** for reasoning, **DuckDuckGo** for real-time web verification, and **Tesseract OCR** for image analysis, all wrapped in a modern, responsive React frontend and a robust Node.js/Express backend.
 
-## 🚀 Live Demo
-- **Frontend**: [Link to your Railway Client App]
-- **API**: [Link to your Railway Server App]
-
+ 
 ## ✨ Key Features
 - **Multi-Modal Analysis**: Verify news via direct text input, URL scraping, or image upload (OCR).
 - **Advanced RAG Pipeline**: Combines LLM reasoning with real-time web search evidence.
